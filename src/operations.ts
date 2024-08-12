@@ -175,7 +175,7 @@ export function isGreater(...values: Printable[]): string {
  * equal comparison(s)
  * @example
  * // returns "1.2==3==true"
- * add(1.2, '3', true)
+ * isEqual(1.2, '3', true)
  */
 export function isEqual(...values: Printable[]): string {
   return values.join("==");
