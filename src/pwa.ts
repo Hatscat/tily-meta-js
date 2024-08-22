@@ -19,7 +19,10 @@ export function registerServiceWorker(path = Text("/sw.js")): string {
  * manifestLink()
  */
 export function manifestLink(path = "m.webmanifest"): string {
-  return element("link", { tagProps: { rel: "manifest", href: path } });
+  return element("link", {
+    tagProps: { rel: "manifest", href: path },
+    closed: false,
+  });
 }
 
 /**
@@ -31,7 +34,10 @@ export function manifestLink(path = "m.webmanifest"): string {
 export function viewportMeta(
   content = "width=device-width,initial-scale=1",
 ): string {
-  return element("meta", { tagProps: { name: "viewport", content } });
+  return element("meta", {
+    tagProps: { name: "viewport", content },
+    closed: false,
+  });
 }
 
 /**
@@ -42,8 +48,8 @@ export function viewportMeta(
  */
 export function htmlDoctype(lang = "en"): string {
   return [
-    element("!DOCTYPE", { tagProps: { html: undefined } }),
-    element("html", { tagProps: { lang } }),
+    element("!DOCTYPE", { tagProps: { html: undefined }, closed: false }),
+    element("html", { tagProps: { lang }, closed: false }),
   ].join("");
 }
 
