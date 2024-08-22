@@ -21,11 +21,12 @@ type ElementProps = {
  *     tagProps: { id: "s", style: "width:50%" },
  *     children: "Hello World!",
  *   }),
+ *   closed: true,
  * })
  */
 export function element(
   tagName: string,
-  { tagProps, children = "", closed = true }: ElementProps,
+  { tagProps, children = "", closed = false }: ElementProps,
 ): string {
   const tag = `<${tagName}${
     tagProps
@@ -36,7 +37,7 @@ export function element(
   }>`;
   const child = Array.isArray(children) ? children.join("") : children;
 
-  return `${tag}${child}${closed ? `</${tagName}>` : ""}`;
+  return `${tag}${child}${closed === true ? `</${tagName}>` : ""}`;
 }
 
 /**
@@ -44,7 +45,7 @@ export function element(
  * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
  * // returns "elementId.innerHTML='<a href=#>link'"
- * setInnerHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link", closed: false }))
+ * setInnerHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link" }))
  */
 export function setInnerHtml(
   element: string,
@@ -63,8 +64,8 @@ export function setInnerHtml(
  * set the outerHTML of an Element
  * @param element a variable name referring to an HTML element, it can be the element ID according to the "Named access on the Window object" rule of the HTML specification.
  * @example
- * // returns "elementId.outerHTML='<a id=elementId href=#>link</a>'"
- * setOuterHtml("elementId", element("a", { tagProps: { id: "elementId", href: "#" }, children: "link" }))
+ * // returns "elementId.outerHTML='<a href=#>link</a>'"
+ * setOuterHtml("elementId", element("a", { tagProps: { href: "#" }, children: "link", closed: true }))
  */
 export function setOuterHtml(
   element: string,
