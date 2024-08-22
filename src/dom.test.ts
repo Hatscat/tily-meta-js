@@ -12,25 +12,31 @@ import {
 } from "./dom.ts";
 
 Deno.test("element()", () => {
-  assertEquals(element("div", {}), "<div>");
+  assertEquals(element("div", {}), "<div></div>");
 
   assertEquals(
     element("body", {
       tagProps: { id: "b" },
+      closed: false,
       children: [
         element("div", {
           tagProps: { style: "width:50%" },
           children: [
             element("img", {
               tagProps: { src: "./icon.png" },
+              closed: false,
             }),
-            element("input", { tagProps: { name: "i", value: "test" } }),
+            element("input", {
+              tagProps: { name: "i", value: "test" },
+              closed: false,
+            }),
           ],
-          closed: true,
         }),
         element("div", {
+          closed: false,
           children: element("span", {
             children: "Hello World!",
+            closed: false,
           }),
         }),
       ],
@@ -45,19 +51,23 @@ Deno.test("setInnerHtml()", () => {
       "elementId",
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
-    "elementId.innerHTML='<a href=#>link'",
+    "elementId.innerHTML='<a href=#>link</a>'",
   );
 
   assertEquals(
     setInnerHtml(
       "b",
       [
-        element("p", { children: "Hello " }),
-        element("span", { children: "World" }),
-        "!",
+        element("p", {
+          children: [
+            "Hello ",
+            element("span", { children: "World", closed: false }),
+            "!",
+          ],
+        }),
       ],
     ),
-    "b.innerHTML='<p>Hello <span>World!'",
+    "b.innerHTML='<p>Hello <span>World!</p>'",
   );
 
   assertEquals(
@@ -75,7 +85,7 @@ Deno.test("setOuterHtml()", () => {
       "elementId",
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
-    "elementId.outerHTML='<a href=#>link'",
+    "elementId.outerHTML='<a href=#>link</a>'",
   );
 });
 
