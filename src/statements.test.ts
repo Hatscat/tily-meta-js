@@ -1,6 +1,8 @@
 import { assertEquals } from "../dev-deps.ts";
+import { element } from "./dom.ts";
 import { add, pow, sub } from "./operations.ts";
-import { assign, defineFunc, execFunc, ifThen } from "./statements.ts";
+import { Text } from "./primitives.ts";
+import { assign, defineFunc, execFunc, ifThen, prop } from "./statements.ts";
 
 Deno.test("defineFunc()", () => {
   assertEquals(
@@ -74,4 +76,10 @@ Deno.test("assign()", () => {
   assertEquals(assign("a", add("a", 2)), "a+=2");
   assertEquals(assign("a", pow("a", assign("b", "3"))), "a**=b=3");
   assertEquals(assign("c", "b", "a", sub("a", 4)), "c=b=a-=4");
+
+  const key = prop("$$elem$$", "innerHTML");
+  assertEquals(
+    assign(key, add(key, Text(element("p", { children: "test" })))),
+    "$$elem$$.innerHTML+='<p>test</p>'",
+  );
 });
