@@ -93,10 +93,14 @@ export function assign(
     : values.length === 2
     ? [values[1]] as [Primitive]
     : values.slice(1) as [...string[], Primitive];
+
+  const escapedKey = key.replace(/[\^$.*+?|\[\]]/g, "\\$&");
   // https://regex101.com/r/1D24WE/1
-  const matches = new RegExp(`^${key}(\\*\\*|<<|>>|[+\\-*\\/%&|])(.+)`).exec(
-    value,
-  );
+  const matches = new RegExp(`^${escapedKey}(\\*\\*|<<|>>|[+\\-*\\/%&|])(.+)`)
+    .exec(
+      value,
+    );
+
   if (matches) {
     return `${key}${matches[1]}=${
       remainingValues ? assign(matches[2], ...remainingValues) : matches[2]
