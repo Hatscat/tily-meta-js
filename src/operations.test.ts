@@ -6,6 +6,7 @@ import {
   group,
   increment,
   loop,
+  templateLiteral,
 } from "./operations.ts";
 import { assign, execFunc, output } from "./statements.ts";
 
@@ -39,5 +40,20 @@ Deno.test("funcConstructor()", () => {
   assertEquals(
     funcConstructor(["a", "b"], output(add("a", "b"))),
     "Function('a','b','return(a+b)')",
+  );
+});
+
+Deno.test("templateLiteral()", () => {
+  assertEquals(
+    templateLiteral(["hello ", "name", "!"]),
+    "`hello ${name}!`",
+  );
+  assertEquals(
+    templateLiteral(["", "var"]),
+    "`${var}`",
+  );
+  assertEquals(
+    templateLiteral(["<p>Value: ", "var1", "/", "var2", "</p>"]),
+    "`<p>Value: ${var1}/${var2}</p>`",
   );
 });

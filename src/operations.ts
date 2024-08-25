@@ -333,17 +333,18 @@ export function funcConstructor(args: string[], body: string) {
 /**
  * String template literal
  * @example
- * // returns "`hello ${name}`!"
- * templateLiteral(["hello ", "!"], ["name"])
+ * // returns "`hello ${name}!`"
+ * templateLiteral(["hello ", "name", "!"])
  */
 export function templateLiteral(
-  stringParts: string[],
-  ...keys: Printable[]
+  parts: string[],
 ): string {
-  return `\`${
-    stringParts.reduce((literal, str, i) =>
-      `${literal}${str}${keys[i] ? `\${${keys[i]}}` : ""}`, "")
-  }\``;
+  let result = "";
+  for (let i = 0; i < parts.length; i += 2) {
+    result += parts[i] +
+      (i + 1 < parts.length ? "${" + parts[i + 1] + "}" : "");
+  }
+  return "`" + result + "`";
 }
 
 /**
