@@ -43,6 +43,16 @@ Deno.test("element()", () => {
     }),
     "<body id=b><div style=width:50%><img src=./icon.png><input name=i value=test></div><div><span>Hello World!",
   );
+
+  assertEquals(
+    element("div", { children: "test", as: "string" }),
+    "'<div>test</div>'",
+  );
+
+  assertEquals(
+    element("div", { children: "test", as: "templateLiteral" }),
+    "`<div>${test}</div>`",
+  );
 });
 
 Deno.test("setInnerHtml()", () => {

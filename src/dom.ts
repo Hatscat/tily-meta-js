@@ -1,3 +1,5 @@
+import { templateLiteral } from "./operations.ts";
+import { Text } from "./primitives.ts";
 import { findAvailableQuote, kebabCase } from "./utils/string.ts";
 import { ReservedVariables } from "./variables.ts";
 
@@ -10,6 +12,7 @@ type ElementProps = {
   tagProps?: { [key: string]: string | undefined };
   children?: string | string[];
   closed?: boolean;
+  as?: "html" | "string" | "templateLiteral";
 };
 
 /**
@@ -25,7 +28,7 @@ type ElementProps = {
  */
 export function element(
   tagName: string,
-  { tagProps, children = "", closed = true }: ElementProps,
+  { tagProps, children = "", closed = true, as = "html" }: ElementProps,
 ): string {
   const tag = `<${tagName}${
     tagProps
@@ -34,9 +37,16 @@ export function element(
       ).join(" ")
       : ""
   }>`;
+
   const child = Array.isArray(children) ? children.join("") : children;
 
-  return `${tag}${child}${closed ? `</${tagName}>` : ""}`;
+  if (as === "templateLiteral") {
+    return templateLiteral([tag, child, closed ? `</${tagName}>` : ""]);
+  }
+
+  const el = `${tag}${child}${closed ? `</${tagName}>` : ""}`;
+
+  return as === "html" ? el : Text(el);
 }
 
 /**
