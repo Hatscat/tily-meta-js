@@ -41,6 +41,25 @@ export function viewportMeta(
 }
 
 /**
+ * helper to generate the mobile meta tags
+ * @example
+ * // returns "<meta name=mobile-web-app-capable content=yes><meta name=apple-mobile-web-app-capable content=yes>"
+ * mobileMeta()
+ */
+export function mobileMeta(): string {
+  return [
+    element("meta", {
+      tagProps: { name: "mobile-web-app-capable", content: "yes" },
+      closed: false,
+    }),
+    element("meta", {
+      tagProps: { name: "apple-mobile-web-app-capable", content: "yes" },
+      closed: false,
+    }),
+  ].join("");
+}
+
+/**
  * helper to generate the HTML Doctype and the html tag
  * @example
  * // returns "<!DOCTYPE html><html lang=en>"
