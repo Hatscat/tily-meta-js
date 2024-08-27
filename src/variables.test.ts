@@ -53,14 +53,13 @@ Deno.test("provideTmpVarNames()", () => {
 Deno.test("replaceAllTmpVarNames()", () => {
   // Given
   const aSourceCode = `$$global$$ = "abc";
-  $$state$$ = { $$key.answer$$: 42, $$key.other$$: "73" }
+  $$state$$ = { $$key.answer$$: 42, $$key.other1$$: "73", $$key.other2$$: null }
   $$state$$.$$key.answer$$ ? true : false
   return $$state$$`;
-  // All AVAILABLE_CHAR_FOR_VARIABLES except the 2 last ones ('Y' and 'Z')
-  const someUnavailableChars =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX".split(
-      "",
-    );
+  // All AVAILABLE_CHAR_FOR_VARIABLES except the 2 last ones ('y' and 'z')
+  const someUnavailableChars = "abcdefghijklmnopqrstuvwx".split(
+    "",
+  );
 
   // When
   const result1 = replaceAllTmpVarNames(aSourceCode);
@@ -70,16 +69,16 @@ Deno.test("replaceAllTmpVarNames()", () => {
   assertEquals(
     result1,
     `c = "abc";
-  a = { b: 42, d: "73" }
+  a = { b: 42, d: "73", e: null }
   a.b ? true : false
   return a`,
   );
   assertEquals(
     result2,
-    `a0 = "abc";
-  Y = { Z: 42, a1: "73" }
-  Y.Z ? true : false
-  return Y`,
+    `ay = "abc";
+  y = { z: 42, az: "73", a0: null }
+  y.z ? true : false
+  return y`,
   );
 });
 

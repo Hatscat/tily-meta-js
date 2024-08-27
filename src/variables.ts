@@ -10,8 +10,7 @@ export enum ReservedVariables {
   TemporaryVar = "$",
 }
 
-const AVAILABLE_CHAR_FOR_VARIABLES =
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const AVAILABLE_CHAR_FOR_VARIABLES = "abcdefghijklmnopqrstuvwxyz";
 
 const TMP_VAR_EDGE = "$$";
 
@@ -95,7 +94,11 @@ export function replaceAllTmpVarNames(
     (
       vars: string[],
       v,
-    ) => [...vars, ...Array.from(Array(10)).map((_, i) => v + i)],
+    ) => [
+      ...vars,
+      ...shortVarNames.map((vv) => v + vv),
+      ...Array.from(Array(10)).map((_, i) => v + i),
+    ],
     [],
   );
   const sortedVarNames: readonly string[] = shortVarNames.concat(longVarNames);
