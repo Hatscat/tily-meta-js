@@ -337,12 +337,13 @@ export function funcConstructor(args: string[], body: string) {
  * templateLiteral(["hello ", "name", "!"])
  */
 export function templateLiteral(
-  parts: string[],
+  alternatedTextsAndExpressions: string[],
 ): string {
   let result = "";
-  for (let i = 0; i < parts.length; i += 2) {
-    result += parts[i] +
-      (i + 1 < parts.length ? "${" + parts[i + 1] + "}" : "");
+  for (let i = 0; i < alternatedTextsAndExpressions.length; i += 2) {
+    const expression = alternatedTextsAndExpressions[i + 1];
+    result += alternatedTextsAndExpressions[i] +
+      (expression ? templateExpression(expression) : "");
   }
   return "`" + result + "`";
 }
@@ -361,4 +362,14 @@ export function templateLiteral(
  */
 export function group(content: Printable, border: ")" | "}" = ")"): string {
   return `${border === ")" ? "(" : "{"}${content}${border}`;
+}
+
+/**
+ * wrap a value in a template literal expression
+ * @example
+ * // returns "${a}"
+ * templateExpression("a")
+ */
+export function templateExpression(expression: string): string {
+  return `\${${expression}}`;
 }

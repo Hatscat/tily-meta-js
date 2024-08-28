@@ -37,14 +37,23 @@ export function element(
       ).join(" ")
       : ""
   }>`;
+  const closeTag = `</${tagName}>`;
+
+  if (as === "templateLiteral") {
+    const childList = Array.isArray(children) ? children : [children];
+    const textsAndExps = [tag, ...childList];
+    return templateLiteral(
+      closed
+        ? textsAndExps.length % 2
+          ? [...textsAndExps, "", closeTag]
+          : [...textsAndExps, closeTag]
+        : textsAndExps,
+    );
+  }
 
   const child = Array.isArray(children) ? children.join("") : children;
 
-  if (as === "templateLiteral") {
-    return templateLiteral([tag, child, closed ? `</${tagName}>` : ""]);
-  }
-
-  const el = `${tag}${child}${closed ? `</${tagName}>` : ""}`;
+  const el = `${tag}${child}${closed ? closeTag : ""}`;
 
   return as === "html" ? el : Text(el);
 }

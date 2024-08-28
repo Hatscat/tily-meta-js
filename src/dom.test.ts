@@ -10,6 +10,7 @@ import {
   setOuterHtml,
   swapElements,
 } from "./dom.ts";
+import { templateExpression } from "./operations.ts";
 
 Deno.test("element()", () => {
   assertEquals(element("div", {}), "<div></div>");
@@ -52,6 +53,17 @@ Deno.test("element()", () => {
   assertEquals(
     element("div", { children: "test", as: "templateLiteral" }),
     "`<div>${test}</div>`",
+  );
+
+  assertEquals(
+    element("div", {
+      children: [
+        "",
+        element("p", { children: templateExpression("test") }),
+      ],
+      as: "templateLiteral",
+    }),
+    "`<div><p>${test}</p></div>`",
   );
 });
 
