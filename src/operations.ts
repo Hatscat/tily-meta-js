@@ -152,14 +152,19 @@ export function rightShift(...values: Printable[]): string {
 }
 
 /**
- * less than comparison(s)
+ * lower than comparison(s)
  * @example
  * // returns "1.2<3<true"
- * isLess(1.2, '3', true)
+ * isLower(1.2, '3', true)
  */
-export function isLess(...values: Printable[]): string {
+export function isLower(...values: Printable[]): string {
   return values.join("<");
 }
+
+/**
+ * alias for isLower
+ */
+export const isLess = isLower;
 
 /**
  * greater than comparison(s)
@@ -170,6 +175,11 @@ export function isLess(...values: Printable[]): string {
 export function isGreater(...values: Printable[]): string {
   return values.join(">");
 }
+
+/**
+ * alias for isGreater
+ */
+export const isMore = isGreater;
 
 /**
  * equal comparison(s)
