@@ -163,6 +163,9 @@ export function isLower(...values: Printable[]): string {
 
 /**
  * alias for isLower
+ * @example
+ * // returns "1.2<3<true"
+ * isLess(1.2, '3', true)
  */
 export const isLess = isLower;
 
@@ -178,6 +181,9 @@ export function isGreater(...values: Printable[]): string {
 
 /**
  * alias for isGreater
+ * @example
+ * // returns "1.2>3>true"
+ * isMore(1.2, '3', true)
  */
 export const isMore = isGreater;
 
