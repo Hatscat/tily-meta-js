@@ -77,9 +77,9 @@ Deno.test("assign()", () => {
   assertEquals(assign("a", pow("a", assign("b", "3"))), "a**=b=3");
   assertEquals(assign("c", "b", "a", sub("a", 4)), "c=b=a-=4");
 
-  const key = prop("$$elem$$", "innerHTML");
+  const key = prop("__elem__", "innerHTML");
   assertEquals(
     assign(key, add(key, Text(element("p", { children: "test" })))),
-    "$$elem$$.innerHTML+='<p>test</p>'",
+    "__elem__.innerHTML+='<p>test</p>'",
   );
 });

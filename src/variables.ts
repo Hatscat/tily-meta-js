@@ -12,7 +12,7 @@ export enum ReservedVariables {
 
 const AVAILABLE_CHAR_FOR_VARIABLES = "abcdefghijklmnopqrstuvwxyz";
 
-const TMP_VAR_EDGE = "$$";
+const TMP_VAR_EDGE = "__";
 
 /**
  * recursive type to represent nested variable collection
@@ -24,18 +24,20 @@ export type VarTree = {
 /**
  * temporary variable name generator
  * @example
- * // returns "$$state.player.hp$$"
+ * // returns "__state_player_hp__"
  * generateTmpVarName("state.player.hp")
  * generateTmpVarName("state", "player", "hp")
  */
 export function generateTmpVarName(...keysPath: string[]): string {
-  return `${TMP_VAR_EDGE}${keysPath.join(".")}${TMP_VAR_EDGE}`;
+  return `${TMP_VAR_EDGE}${
+    keysPath.join("_").replaceAll(".", "_")
+  }${TMP_VAR_EDGE}`;
 }
 
 /**
  * returns the inputted variable collection filled with temporary names in values
  * @example
- * // returns { state: "$$state$$", element: { canvas: "$$element.canvas$$", header: "$$element.header$$" }}
+ * // returns { state: "__state__", element: { canvas: "__element_canvas__", header: "__element_header__" }}
  * provideTmpVarNames({ state: "", element: { canvas: "", header: "" } })
  */
 export function provideTmpVarNames<T extends VarTree>(

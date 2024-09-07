@@ -30,16 +30,16 @@ Deno.test("provideTmpVarNames()", () => {
 
   // Then
   const expectedResult = {
-    state: "$$state$$",
+    state: "__state__",
     element: {
-      canvas: "$$element.canvas$$",
-      header: "$$element.header$$",
+      canvas: "__element_canvas__",
+      header: "__element_header__",
     },
     function: {
-      navToHome: "$$function.navToHome$$",
+      navToHome: "__function_navToHome__",
       loop: {
-        render: "$$function.loop.render$$",
-        draw: "$$function.loop.draw$$",
+        render: "__function_loop_render__",
+        draw: "__function_loop_draw__",
       },
     },
   };
@@ -52,12 +52,12 @@ Deno.test("provideTmpVarNames()", () => {
 
 Deno.test("replaceAllTmpVarNames()", () => {
   // Given
-  const aSourceCode = `$$global$$ = "abc";
-  $$state$$ = { $$key.answer$$: 42, $$key.other1$$: "73", $$key.other2$$: null }
-  $$state$$.$$key.answer$$ ? true : false
-  return $$state$$`;
+  const aSourceCode = `__global__ = "abc";
+  __state__ = { __key_answer__: 42, __key_other1__: "73", __key_other2__: null }
+  __state__.__key_answer__ ? true : false
+  return __state__`;
   // All AVAILABLE_CHAR_FOR_VARIABLES except the 2 last ones ('y' and 'z')
-  const someUnavailableChars = "abcdefghijklmnopqrstuvwx".split(
+  const someUnavailableChars = "$abcdefghijklmnopqrstuvwx".split(
     "",
   );
 
