@@ -38,7 +38,7 @@ export const NOTHING = 0;
  * // return '"hello 'world'!"'
  * Text("hello 'world'!")
  */
-export function Text(value: Printable): string {
+export function Text(value: Printable = ""): string {
   const quote = findAvailableQuote(String(value)) ?? "\\'";
   return `${quote}${value}${quote}`;
 }
