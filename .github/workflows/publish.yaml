@@ -1,0 +1,31 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup 🛠️
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Format 🧹
+        run: deno fmt
+
+      - name: Lint 🔎
+        run: deno lint
+
+      - name: Test ⚔️
+        run: deno test
+
+      - name: Publish 🚀
+        if: startsWith(github.ref, 'refs/tags/')
+        run: deno publish
+
