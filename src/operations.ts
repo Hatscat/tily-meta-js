@@ -234,7 +234,7 @@ export function loop(
     body2?: string | string[];
     init?: string | string[];
   },
-) {
+): string {
   return `for(${init ?? ""};${condition};${body2 ?? ""})${body ?? ""}`;
 }
 
@@ -340,7 +340,7 @@ export function minus(value: Primitive): string {
  * // return "Function('a','b','return(a+b)')"
  * funcConstructor(["a", "b"], output(add("a", "b")))
  */
-export function funcConstructor(args: string[], body: string) {
+export function funcConstructor(args: string[], body: string): string {
   return `Function(${args.reduce((argsStr, a) => argsStr + Text(a) + ",", "")}${
     Text(body)
   })`;

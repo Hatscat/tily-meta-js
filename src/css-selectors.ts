@@ -4,7 +4,7 @@
  * // return "#a"
  * id("a")
  */
-export function id(id: string) {
+export function id(id: string): string {
   return `#${id}`;
 }
 
@@ -14,7 +14,7 @@ export function id(id: string) {
  * // return ".a"
  * className("a")
  */
-export function className(_className: string) {
+export function className(_className: string): string {
   return `.${_className}`;
 }
 
@@ -24,7 +24,7 @@ export function className(_className: string) {
  * // return "a,#b,.c"
  * selectorList("a", id("b"), className("c"))
  */
-export function selectorList(...selectors: string[]) {
+export function selectorList(...selectors: string[]): string {
   return selectors.join(",");
 }
 
@@ -34,7 +34,7 @@ export function selectorList(...selectors: string[]) {
  * // return "a[href]"
  * attribute("a", "href")
  */
-export function attribute(selector: string, attribute: string) {
+export function attribute(selector: string, attribute: string): string {
   return `${selector}[${attribute}]`;
 }
 
@@ -44,7 +44,7 @@ export function attribute(selector: string, attribute: string) {
  * // return "a:hover"
  * hover("a")
  */
-export function hover(selector: string) {
+export function hover(selector: string): string {
   return `${selector}:hover`;
 }
 
@@ -54,7 +54,7 @@ export function hover(selector: string) {
  * // return "a::after"
  * after("a")
  */
-export function after(selector: string) {
+export function after(selector: string): string {
   return `${selector}::after`;
 }
 
@@ -67,6 +67,6 @@ export function after(selector: string) {
  * // return "a>b"
  * directChildren("a", "b")
  */
-export function directChildren(selector: string, childSelector = "*") {
+export function directChildren(selector: string, childSelector = "*"): string {
   return `${selector}>${childSelector}`;
 }

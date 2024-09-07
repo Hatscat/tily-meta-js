@@ -1,6 +1,6 @@
 import { config } from "../config.ts";
 import {
-  ActionBase,
+  type ActionBase,
   add,
   assign,
   createActionDispatch,
@@ -27,7 +27,7 @@ import {
   shouldTheBulletBeKept,
 } from "../rules/game.ts";
 import { params, state } from "../variables.ts";
-import { GameState, State } from "./state.ts";
+import { GameState, type State } from "./state.ts";
 
 enum ActionType {
   SetTime,

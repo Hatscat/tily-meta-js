@@ -3,7 +3,7 @@ import {
   initVariables,
   manifestLink,
   registerServiceWorker,
-  SrcProps,
+  type SrcProps,
   titleTag,
   viewportMeta,
 } from "./deps.ts";

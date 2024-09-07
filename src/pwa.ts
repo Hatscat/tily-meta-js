@@ -8,7 +8,7 @@ import { execFunc, prop } from "./statements.ts";
  * // returns "navigator.serviceWorker?.register('/sw.js')"
  * registerServiceWorker()
  */
-export function registerServiceWorker(path = Text("/sw.js")): string {
+export function registerServiceWorker(path: string = Text("/sw.js")): string {
   return execFunc(prop("navigator", "serviceWorker?", "register"), path);
 }
 
