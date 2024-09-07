@@ -1,5 +1,5 @@
 import { removeFalsyItems } from "./utils/array.ts";
-import { Primitive, Printable } from "./utils/type.ts";
+import type { Primitive, Printable } from "./utils/type.ts";
 import { ReservedVariables } from "./variables.ts";
 
 type FunctionDefinition = {

@@ -1,5 +1,5 @@
 import { Text } from "./primitives.ts";
-import { Primitive, Printable } from "./utils/type.ts";
+import type { Primitive, Printable } from "./utils/type.ts";
 
 /**
  * addition(s)

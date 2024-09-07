@@ -1,5 +1,5 @@
 import { findAvailableQuote } from "./utils/string.ts";
-import { isRecord, Printable } from "./utils/type.ts";
+import { isRecord, type Printable } from "./utils/type.ts";
 
 /**
  * a short expression which is equal to `undefined`
