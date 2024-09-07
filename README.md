@@ -12,7 +12,7 @@ source code.
 ```ts
 // deps.ts
 
-export * from "https://raw.githubusercontent.com/Hatscat/MetavaScript/main/index.ts";
+export * from "https://raw.githubusercontent.com/Hatscat/MetavaScript/v1.0.0/index.ts";
 ```
 
 ## Contributing
