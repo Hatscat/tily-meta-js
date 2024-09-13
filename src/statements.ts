@@ -31,7 +31,7 @@ export function defineFunc(
     : `(${args})`;
   const declaration = name ? `${name}=` : "";
 
-  return /while|for|if|switch|return|[{;]/.test(String(body))
+  return /while|for|if|switch|return|;/.test(String(body))
     ? `${declaration}${enclosedArgs}=>{${body}}`
     : safe
     ? `${declaration}${enclosedArgs}=>(${body})`
