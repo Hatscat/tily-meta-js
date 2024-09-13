@@ -8,6 +8,7 @@ Deno.test("findAvailableQuote()", () => {
   assertEquals(findAvailableQuote('Hello "World"!'), "'");
   assertEquals(findAvailableQuote("Hello \"'World'\"!"), "`");
   assertEquals(findAvailableQuote("Hello \"'`World`'\"!"), undefined);
+  assertEquals(findAvailableQuote("Hello 'World'!", ["'", "`"]), "`");
 });
 
 Deno.test("kebabCase()", () => {

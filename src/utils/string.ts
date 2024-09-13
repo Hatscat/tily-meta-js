@@ -1,5 +1,7 @@
-export function findAvailableQuote(text: string): "'" | '"' | "`" | undefined {
-  const quotes: ["'", '"', "`"] = ["'", '"', "`"];
+export function findAvailableQuote(
+  text: string,
+  quotes: Array<"'" | '"' | "`"> = ["'", '"', "`"],
+): "'" | '"' | "`" | undefined {
   return quotes.filter((q) => !text.includes(q))[0];
 }
 
