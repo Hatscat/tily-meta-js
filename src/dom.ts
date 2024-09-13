@@ -68,14 +68,18 @@ export function element(
 export function setInnerHtml(
   element: string,
   html: string | string[],
+  { isTemplateLiteral } = { isTemplateLiteral: false },
 ): string {
   const innerHtml = Array.isArray(html) ? html.join("") : html;
-  const quote = findAvailableQuote(innerHtml);
+  const quote = findAvailableQuote(
+    innerHtml,
+    isTemplateLiteral ? ["`"] : undefined,
+  );
 
   if (quote) {
     return `${element}.innerHTML=${quote}${innerHtml}${quote}`;
   }
-  return `${element}.innerHTML='${innerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.innerHTML=\`${innerHtml.replaceAll("`", "\\`")}\``;
 }
 
 /**
@@ -88,14 +92,18 @@ export function setInnerHtml(
 export function setOuterHtml(
   element: string,
   html: string | string[],
+  { isTemplateLiteral } = { isTemplateLiteral: false },
 ): string {
   const outerHtml = Array.isArray(html) ? html.join("") : html;
-  const quote = findAvailableQuote(outerHtml);
+  const quote = findAvailableQuote(
+    outerHtml,
+    isTemplateLiteral ? ["`"] : undefined,
+  );
 
   if (quote) {
     return `${element}.outerHTML=${quote}${outerHtml}${quote}`;
   }
-  return `${element}.outerHTML='${outerHtml.replaceAll("'", "\\'")}'`;
+  return `${element}.outerHTML=\`${outerHtml.replaceAll("'", "\\'")}\``;
 }
 
 /**

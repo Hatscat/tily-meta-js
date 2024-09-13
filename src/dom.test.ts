@@ -97,7 +97,18 @@ Deno.test("setInnerHtml()", () => {
       "b",
       element("p", { children: "Hello '\"`World`\"'!", closed: true }),
     ),
-    "b.innerHTML='<p>Hello \\'\"`World`\"\\'!</p>'",
+    "b.innerHTML=`<p>Hello '\"\\`World\\`\"'!</p>`",
+  );
+  assertEquals(
+    setInnerHtml(
+      "elementId",
+      element("a", {
+        tagProps: { href: "#" },
+        children: templateExpression("link"),
+      }),
+      { isTemplateLiteral: true },
+    ),
+    "elementId.innerHTML=`<a href=#>${link}</a>`",
   );
 });
 
@@ -108,6 +119,17 @@ Deno.test("setOuterHtml()", () => {
       element("a", { tagProps: { href: "#" }, children: "link" }),
     ),
     "elementId.outerHTML='<a href=#>link</a>'",
+  );
+  assertEquals(
+    setOuterHtml(
+      "elementId",
+      element("a", {
+        tagProps: { href: "#" },
+        children: templateExpression("link"),
+      }),
+      { isTemplateLiteral: true },
+    ),
+    "elementId.outerHTML=`<a href=#>${link}</a>`",
   );
 });
 
